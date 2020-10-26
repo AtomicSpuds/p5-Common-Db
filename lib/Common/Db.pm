@@ -54,9 +54,9 @@ sub init_db {
 		return;
 	}
 	my @tables = split(/,/,$sc->{tables});
-	foreach my $t (@tables) {
-		printf STDERR "config->sql->tables +%s\n",$t;
-	}
+	#foreach my $t (@tables) {
+	#	printf STDERR "config->sql->tables +%s\n",$t;
+	##}
 
 	# calling init_db by definition means re-connecting
 	my $dbh;
