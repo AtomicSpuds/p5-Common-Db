@@ -61,6 +61,7 @@ sub init_db {
 	# calling init_db by definition means re-connecting
 	my $dbh;
 	my $driver = $sc->{driver};
+	my $host = $sc->{host};
 	my $user = $sc->{user};
 	my $pass = $sc->{pass};
 	my $db = $sc->{db};
@@ -83,8 +84,12 @@ sub init_db {
 	#print "init_db: past loading $class\n";
 	
 	if (!defined($dbh)) {
+		my $dsn = "dbi:${driver}:dbname=$db";
+		if (defined($host)) {
+			$dsn .= ";host=${host}";
+		}
 		eval {
-		$dbh = DBI->connect("dbi:${driver}:dbname=$db",$user,$pass,
+		$dbh = DBI->connect($dsn,$user,$pass,
 			{RaiseError => 1, AutoCommit => 1});
 		};
 		if ($@) {
